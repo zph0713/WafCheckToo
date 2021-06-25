@@ -6,3 +6,5 @@
 conf/settings.py
 *.json
 *.pem
+local_tool/conf/addr_crypto
+local_tool/conf/settings.py

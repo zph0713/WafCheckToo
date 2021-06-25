@@ -1,0 +1,8 @@
+
+*.pyc
+*.cfg
+*.log
+*.tgz
+conf/settings.py
+*.json
+*.pem

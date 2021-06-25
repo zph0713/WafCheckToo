@@ -1,0 +1,29 @@
+global
+    log         127.0.0.1 local2 info
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     50000
+    user        haproxy
+    group       haproxy
+    daemon
+    stats socket /var/lib/haproxy/stats
+
+defaults
+    log global
+    mode tcp
+    option tcplog
+    option dontlognull
+    retries 3
+    maxconn 50000
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+
+listen stats
+    bind 0.0.0.0:8888
+    mode http
+    log 127.0.0.1 local2 err
+    stats enable
+    stats uri /status
+    stats refresh 15s
+    stats auth @auth@

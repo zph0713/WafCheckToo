@@ -1,0 +1,6 @@
+listen @listen_port@
+    mode tcp
+    option tcpka
+    log 127.0.0.1 local2 err
+    option tcplog
+    balance roundrobin

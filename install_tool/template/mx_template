@@ -1,0 +1,13 @@
+--init_mode
+--user=ltops
+--secure_password=@secure_password@
+--system_password=@system_password@
+--timezone=@timezone@
+--time_servers=@time_servers@
+--dns_servers=@dns_servers@
+--dns_domain="#"
+--management_interface=eth0
+--product_role=@product_role@
+--asset_tag=@asset_tag@
+--check_server_status
+--initiate_services

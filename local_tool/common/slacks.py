@@ -40,4 +40,4 @@ class SlackSender(object):
 
 if __name__ == '__main__':
     SLK = SlackSender()
-    SLK.upload_file('/Users/10019311/Documents/GitHub/WafCheckToo/local_tool/image/cover.jpg')
+    SLK.upload_file('image/cover.jpg')

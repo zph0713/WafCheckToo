@@ -16,6 +16,7 @@ class WafCheck(object):
         self.CQ = CmdbQuery()
         self.timeout_domain_list = list()
         self.connect_fail_list = list()
+        self.abnormal_public_domain = list()
 
     def scan_waf_status(self,query_type,domain):
         domain_addr = query_type + domain
@@ -39,7 +40,9 @@ class WafCheck(object):
             else:
                 self.connect_fail_list.append(domain)
         self.waf_status['check_results'] = self.waf_status_list
-
+        ab_public = re.search(settings.abnormal_public_re,domain)
+        if ab_public is not None:
+            self.abnormal_public_domain.append(domain_addr)
 
     def retry_show_waf_check(self):
         domain_list = self.timeout_domain_list
@@ -54,7 +57,7 @@ class WafCheck(object):
             logger.info(domain+' analysising')
             self.scan_waf_status('http://',domain)
         self.retry_show_waf_check()
-        check_waf_coverage(self.waf_status['check_results'])
+        table_data = check_waf_coverage(self.waf_status['check_results'])
         return self.waf_status
 
     def analysis_coverage(self):
@@ -81,5 +84,6 @@ class WafCheck(object):
         coverage['not_cover'] = len(waf_not_enable)
         coverage['unable_connect'] = len(data['connect_fail'])
         coverage['coverage'] = '{:.2f}%'.format(len(waf_enable)/total_domain_count*100)
+
         logger.debug(coverage)
-        return waf_check_results,coverage
+        return waf_check_results,coverage,self.abnormal_public_domain
